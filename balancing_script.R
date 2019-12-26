@@ -2,11 +2,17 @@
 # 
 
 
-balance_dataset <- function(dataset = NULL, balancing_column = NULL, deviation = 0.1){
+balance_dataset <- function(dataset = NULL, balancing_column = NULL, deviation = 0.1, balance = TRUE){
+  
+  if (balance) {
   
   least_represented_class <- min(table(dataset[, balancing_column]))
   most_represented_class <- max(table(dataset[, balancing_column]))
-  average <- (least_represented_class + most_represented_class)/2
+  print(least_represented_class)
+  print(most_represented_class)
+ 
+   average <- (least_represented_class + most_represented_class)/2 
+ print(average)
   
   selected_rows <- NULL
   Replace <- FALSE
@@ -26,6 +32,7 @@ balance_dataset <- function(dataset = NULL, balancing_column = NULL, deviation =
   }
   
   dataset <- dataset[selected_rows, ]
+  }
   
   train_set <- sample(1:nrow(dataset), nrow(dataset)*0.7, replace = FALSE)
   
